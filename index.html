@@ -655,7 +655,7 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
           </div>
 
           <div class="qa">
-            <button class="qa-item ripple-host" onclick="openTopUp('c1')">
+            <button class="qa-item ripple-host" onclick="openTopUp(currentCardId())">
               <span class="qa-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 5.5v13M5.5 12h13" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" opacity=".35"/></svg></span>
               <span>Recargar</span>
             </button>
@@ -1621,42 +1621,81 @@ function openMove(id){
 }
 
 function openTopUp(cardId){
-  const c = cardById(cardId) || STATE.cards[0]; if(!c) return;
+  const c = cardById(cardId) || STATE.cards[0];
+  if(!c){
+    toast('Primero vincula una tarjeta para recargar.', 'info');
+    go('register');
+    return;
+  }
   const amounts = [5000,10000,20000,50000];
+  const fullOrMasked = c.fullNum || c.num;
   openSheet(`
     <div class="eyebrow" style="text-align:center">Recargar saldo</div>
     <div style="text-align:center;margin-top:8px">
       <div class="h2">${OPERATORS[c.op].name} · •••• ${c.num}</div>
-      <div class="tiny dim" style="margin-top:5px">Saldo actual ${money(c.balance)}</div>
+      <div class="tiny dim" style="margin-top:5px">Saldo actual en wallet: ${money(c.balance)}</div>
     </div>
-    <div class="grid2" style="margin-top:18px" id="topupGrid">
-      ${amounts.map((a,i)=>`<button class="op ${i===2?'on':''}" data-amt="${a}" style="text-align:center;padding:16px 10px">
-        <span class="h2 tnum" style="display:block">${money(a)}</span>
+
+    <!-- Botón directo Portal Oficial TuLlave -->
+    <div class="panel" style="margin-top:16px;background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(25,211,162,.06));border-color:rgba(34,211,238,.35);padding:14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="row-ico in" style="width:38px;height:38px;flex:0 0 auto;border-radius:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:13.5px;font-weight:700">Recarga Oficial TuLlave Plus</div>
+          <div class="tiny dim" style="margin-top:2px">Portal web oficial con PSE y tarjetas débito/crédito</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:12px;height:44px;font-size:12.5px" onclick="openTuLlaveWeb('${fullOrMasked}')">
+        <span class="btn-label" style="display:flex;align-items:center;gap:8px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          IR A RECARGASWEB TULLAVE →
+        </span>
+      </button>
+    </div>
+
+    <div class="sec-head" style="margin:20px 2px 10px">
+      <h3 class="h3" style="font-size:13px;color:var(--gray-dim)">O REGISTRAR RECARGA LOCAL (WALLET)</h3>
+    </div>
+
+    <div class="grid2" style="margin-top:8px" id="topupGrid">
+      ${amounts.map((a,i)=>`<button class="op ${i===2?'on':''}" data-amt="${a}" style="text-align:center;padding:14px 10px">
+        <span class="h2 tnum" style="display:block;font-size:17px">${money(a)}</span>
         <span class="tiny dim" style="display:block;margin-top:4px">${Math.floor(a/3500)} viajes aprox.</span>
       </button>`).join('')}
     </div>
-    <div class="notice" style="margin-top:16px">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.8v5.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor"/></svg>
-      <span>El saldo se acredita en tiempo real mediante pasarela digital de recargas.</span>
-    </div>
-    <button class="btn btn-primary" id="topupBtn" style="margin-top:16px">
-      <span class="btn-label">CONFIRMAR RECARGA</span><span class="spinner"><i></i></span>
+
+    <button class="btn btn-ghost" id="topupBtn" style="margin-top:14px">
+      <span class="btn-label">REGISTRAR SALDO EN WALLET</span><span class="spinner"><i></i></span>
     </button>
   `);
+
   let amt = 20000;
   $$('#topupGrid .op').forEach(b=>b.onclick=()=>{
     $$('#topupGrid .op').forEach(x=>x.classList.remove('on'));
     b.classList.add('on'); amt = +b.dataset.amt; haptic();
   });
   $('#topupBtn').onclick = function(){
-    // Todo pago exige la clave, aunque la wallet ya esté abierta.
     requirePin({
       cardId:c.id, payment:true,
-      title:'Autorizar pago',
-      detail:`Recarga de <b style="color:var(--white)">${money(amt)}</b><br>${OPERATORS[c.op].name} · •••• ${c.num}`,
-      cta:'AUTORIZAR PAGO'
+      title:'Autorizar saldo',
+      detail:`Acreditar <b style="color:var(--white)">${money(amt)}</b> a tu tarjeta<br>${OPERATORS[c.op].name} · •••• ${c.num}`,
+      cta:'CONFIRMAR'
     }, ()=>applyTopUp(c, amt));
   };
+}
+
+function openTuLlaveWeb(cardNum){
+  const clean = String(cardNum||'').replace(/\D/g,'');
+  if(navigator.clipboard && clean){
+    navigator.clipboard.writeText(clean).catch(()=>{});
+    toast('Número copiado al portapapeles (' + clean + ')', 'ok');
+  }
+  const url = 'https://recargasweb.tullaveplus.gov.co/';
+  setTimeout(()=>{
+    window.open(url, '_blank');
+  }, 400);
 }
 
 function applyTopUp(c, amt){
@@ -1705,8 +1744,13 @@ function openCardDetail(cardId){
       <div class="kv"><dt>Estado</dt><dd style="color:${c.active?'var(--green)':'var(--danger)'}">${c.active?'Activa':'Bloqueada'}</dd></div>
       <div class="kv"><dt>Vinculada</dt><dd>${cardDate}</dd></div>
       <div class="kv"><dt>Saldo disponible</dt><dd class="tnum">${money(c.balance)}</dd></div>
-    </dl>
-    <div style="display:flex;gap:10px;margin-top:16px">
+    <button class="btn btn-primary" style="margin-top:14px;height:44px;font-size:12.5px" onclick="openTuLlaveWeb('${c.fullNum || c.num}')">
+      <span class="btn-label" style="display:flex;align-items:center;gap:8px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        RECARGAR EN TULLAVE WEB
+      </span>
+    </button>
+    <div style="display:flex;gap:10px;margin-top:10px">
       <button class="btn btn-ghost" onclick="closeSheet()"><span class="btn-label">CERRAR</span></button>
       <button class="btn btn-danger" onclick="deleteCard('${c.id}')"><span class="btn-label">ELIMINAR</span></button>
     </div>
@@ -1761,6 +1805,7 @@ function openMore(){
   openSheet(`
     <div class="h2" style="margin-bottom:14px">Más acciones</div>
     <div class="rows">
+      ${item('Recarga Oficial TuLlave','Portal web recargasweb.tullaveplus.gov.co',"openTuLlaveWeb(currentCardId()?cardById(currentCardId())?.fullNum:'');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>')}
       ${item('Planificar viaje','Rutas, tiempos y transbordos',"toast('Planificador de rutas en tiempo real.','info');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.6"/></svg>')}
       ${item('Transferir saldo','Entre tus tarjetas vinculadas',"toast('Transferencia entre tarjetas disponible.','info');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 8.2h12.6M13.8 5.4 16.6 8.2l-2.8 2.8M20 15.8H7.4M10.2 13l-2.8 2.8 2.8 2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>')}
       ${item('Recarga automática','Programa recargas por saldo bajo',"toast('Recarga automática activada · $20.000','ok');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 12a7.5 7.5 0 1 1 2.4 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4.2 7.6v4.6h4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>')}
