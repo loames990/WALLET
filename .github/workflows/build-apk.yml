@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build Android APK
@@ -28,11 +31,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Web Assets
+      - name: Build Web and Mobile Assets
         run: npm run build
-
-      - name: Sync Capacitor
-        run: npx cap sync android
 
       - name: Build Debug APK with Gradle
         run: |
@@ -40,9 +40,24 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
+      - name: Prepare APK for Release
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk SmartTransitWallet.apk
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SmartTransitWallet-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: SmartTransitWallet-APK
+          path: SmartTransitWallet.apk
           if-no-files-found: error
+
+      - name: Publish Release with APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: Smart Transit Wallet v1.0.0 (APK)
+          body: |
+            ## 📱 Smart Transit Wallet APK
+            Descarga `SmartTransitWallet.apk` e instálalo en tu dispositivo Android.
+          files: SmartTransitWallet.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
