@@ -574,7 +574,7 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
   <footer class="sc-foot">
     <p>Prototipo de alta fidelidad. Operadores, estaciones, saldos y transacciones son ficticios y no representan entidades reales.<br>Diseñado para presentación ante equipos de desarrollo y entidades públicas de movilidad.</p>
     <div class="sc-cta">
-      <button class="sc-btn g" onclick="scReload()">↻ Reiniciar demo</button>
+      <button class="sc-btn g" onclick="scReload()">↻ Reiniciar</button>
       <button class="sc-btn p" onclick="scOpenMobile()">Ver como app móvil →</button>
     </div>
   </footer>
@@ -590,11 +590,7 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
 
   <div class="statusbar">
     <span id="clock" class="tnum">08:42</span>
-    <span class="sb-r">
-      <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="7" width="2.6" height="4" rx=".8" fill="currentColor"/><rect x="4.2" y="5" width="2.6" height="6" rx=".8" fill="currentColor"/><rect x="8.4" y="2.6" width="2.6" height="8.4" rx=".8" fill="currentColor"/><rect x="12.6" y="0" width="2.6" height="11" rx=".8" fill="currentColor" opacity=".35"/></svg>
-      <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 9.6 1 3.3a9.2 9.2 0 0 1 13 0L7.5 9.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" opacity=".55"/><circle cx="7.5" cy="8.6" r="1.3" fill="currentColor"/></svg>
-      <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x=".6" y=".6" width="19" height="9.8" rx="2.8" stroke="currentColor" opacity=".45" stroke-width="1.1"/><rect x="2.2" y="2.2" width="14.6" height="6.6" rx="1.7" fill="currentColor"/><path d="M21.4 4v3a2 2 0 0 0 0-3Z" fill="currentColor" opacity=".45"/></svg>
-    </span>
+    <span class="sb-r" style="font-size:10.5px;font-weight:700;letter-spacing:.12em">SMART TRANSIT WALLET</span>
   </div>
 
   <div id="toasts"></div>
@@ -614,9 +610,11 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
       </div>
 
       <div class="topbar" style="padding-top:0">
-        <div class="avatar">CH</div>
+        <div class="avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.7" stroke="currentColor" stroke-width="1.6"/><path d="M5 20.5v-1.8a4.2 4.2 0 0 1 4.2-4.2h5.6a4.2 4.2 0 0 1 4.2 4.2v1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:16px;font-weight:650;letter-spacing:-.3px" id="greet">Buenos días, Charlin</div>
+          <div style="font-size:16px;font-weight:650;letter-spacing:-.3px" id="greet">Buenos días</div>
           <div class="tiny dim" style="margin-top:2px">Tu movilidad está lista.</div>
         </div>
         <button class="icobtn" style="position:relative" onclick="toast('Tienes 2 notificaciones nuevas.','info')">
@@ -922,11 +920,12 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
       <div class="screen-body scroll">
         <div class="stagger">
           <div class="panel" style="display:flex;gap:14px;align-items:center">
-            <div class="avatar" style="width:54px;height:54px;border-radius:18px;font-size:17px">CH</div>
+            <div class="avatar" style="width:54px;height:54px;border-radius:18px;font-size:17px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.7" stroke="currentColor" stroke-width="1.6"/><path d="M5 20.5v-1.8a4.2 4.2 0 0 1 4.2-4.2h5.6a4.2 4.2 0 0 1 4.2 4.2v1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
             <div style="flex:1">
-              <div class="h2">Charlin Landazury</div>
-              <div class="tiny dim" style="margin-top:4px">Usuario verificado</div>
-              <span class="pill pill-ok" style="margin-top:8px"><i class="dot"></i>Identidad vinculada</span>
+              <div class="h2">Mi perfil</div>
+              <div class="tiny dim" style="margin-top:4px">Completa tus datos personales</div>
             </div>
           </div>
 
@@ -1827,7 +1826,7 @@ function lockAll(){
   toast('Wallets bloqueadas. Se pedirá la clave de pago.','info');
 }
 
-/** Cambio de clave de pago (demo). */
+/** Cambio de clave de pago. */
 function changePin(){
   openSheet(`
     <div class="h2" style="margin-bottom:6px">Clave de pago</div>
@@ -2029,7 +2028,7 @@ function boot(){
   // greeting
   const hr = new Date().getHours();
   const g = hr<12 ? 'Buenos días' : hr<19 ? 'Buenas tardes' : 'Buenas noches';
-  if($('#greet')) $('#greet').textContent = `${g}, Charlin`;
+  if($('#greet')) $('#greet').textContent = g;
 
   mountAppBg();
   mountHero('walletHero','walletHeroImg', IMG.walletHero);
