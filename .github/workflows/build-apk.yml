@@ -5,8 +5,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write
+permissions: write-all
 
 jobs:
   build:
@@ -23,13 +22,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install Dependencies
         run: npm install
@@ -41,29 +37,28 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon
 
-      - name: Prepare APK for Release
+      - name: Prepare APK
         run: |
-          APK_FILE=$(find android/app/build/outputs/apk/ -name "*.apk" | head -n 1)
-          echo "Found APK at $APK_FILE"
-          cp "$APK_FILE" SmartTransitWallet.apk
+          mkdir -p build-output
+          cp android/app/build/outputs/apk/debug/app-debug.apk build-output/SmartTransitWallet.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: SmartTransitWallet-APK
-          path: SmartTransitWallet.apk
+          path: build-output/SmartTransitWallet.apk
           if-no-files-found: error
 
-      - name: Publish Release with APK
+      - name: Create GitHub Release with APK
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.0
-          name: Smart Transit Wallet v1.0.0 (APK)
+          name: Smart Transit Wallet v1.0.0
           body: |
-            ## 📱 Smart Transit Wallet APK
-            Descarga `SmartTransitWallet.apk` e instálalo en tu teléfono Android.
-          files: SmartTransitWallet.apk
+            ### 📱 Smart Transit Wallet APK
+            Descarga el archivo **SmartTransitWallet.apk** adjunto e instálalo en tu dispositivo Android.
+          files: build-output/SmartTransitWallet.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
