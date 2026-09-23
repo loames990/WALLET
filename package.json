@@ -1,0 +1,25 @@
+{
+  "name": "wallet-trasmilenio",
+  "version": "1.0.0",
+  "description": "Aplicación web progresiva (PWA) para la consulta, registro y administración de tarjetas de transporte público (TransMilenio, Metro, SITP, MIO). Diseñada para ofrecer una experiencia móvil moderna, fluida y con soporte offline.",
+  "main": "sw.js",
+  "scripts": {
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loames990/WALLET.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/loames990/WALLET/issues"
+  },
+  "homepage": "https://github.com/loames990/WALLET#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2"
+  }
+}

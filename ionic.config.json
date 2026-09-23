@@ -1,0 +1,7 @@
+{
+  "name": "Smart Transit Wallet",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
