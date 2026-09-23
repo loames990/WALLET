@@ -1,0 +1,50 @@
+{
+  "name": "Smart Transit Wallet",
+  "short_name": "Transit Wallet",
+  "description": "Prototipo de registro, administración y consulta de tarjetas de transporte público. Datos simulados.",
+  "lang": "es-CO",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#080B10",
+  "theme_color": "#080B10",
+  "categories": ["travel", "finance", "utilities"],
+  "icons": [
+    {
+      "src": "assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mi Wallet",
+      "short_name": "Wallet",
+      "url": "./?screen=wallet",
+      "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Movimientos",
+      "short_name": "Movimientos",
+      "url": "./?screen=moves",
+      "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

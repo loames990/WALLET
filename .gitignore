@@ -1,0 +1,23 @@
+# Vercel
+.vercel/
+
+# Dependencias (el prototipo no usa ninguna, pero evita accidentes)
+node_modules/
+
+# Entorno y secretos — nunca deben llegar al repositorio
+.env
+.env.*
+!.env.example
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+
+# Temporales
+*.log
+*.tmp
