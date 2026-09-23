@@ -1,44 +1,51 @@
-# assets/img — Imágenes del prototipo
+# Smart Transit Wallet 🚊💳
 
-El prototipo carga las imágenes **por nombre de archivo**. Para cambiar una,
-reemplaza el archivo: no hay que tocar el código.
+Aplicación web progresiva (PWA) para la consulta, registro y administración de tarjetas de transporte público (TransMilenio, Metro, SITP, MIO). Diseñada para ofrecer una experiencia móvil moderna, fluida y con soporte offline.
 
-## Archivos reconocidos
+## ✨ Características
 
-| Archivo | Dónde aparece | Estado |
-|---|---|---|
-| `icono_wallet.png` | Ícono de pestaña, de app iOS/Android y del manifest | ✅ en uso |
-| `walle1.jpg`   | **Fondo global** de toda la app | ✅ en uso |
-| `home-hero.jpg`| Banner superior del **Dashboard** | ✅ en uso |
-| `wallet-hero.jpg` | Banner superior de la pantalla **Wallet** | ⬚ opcional |
-| `card-bus.png`    | Arte de fondo de las tarjetas **TRANSIT** | ⬚ opcional |
-| `card-metro.png`  | Arte de fondo de las tarjetas **METRO** | ⬚ opcional |
-| `card-mio.png`    | Arte de fondo de las tarjetas **MIO PASS** | ⬚ opcional |
-| `card-citybus.png`| Arte de fondo de las tarjetas **CITYBUS** | ⬚ opcional |
+- 📱 **Diseño Móvil & PWA:** Totalmente responsiva e instalable en dispositivos móviles o escritorio.
+- ⚡ **Despliegue Inmediato:** Preparada para producción en **Vercel** con cabeceras de seguridad y caché optimizadas (`vercel.json`).
+- 📶 **Soporte Offline:** Service Worker integrado (`sw.js`) para funcionamiento sin conexión tras la primera carga.
+- 🎨 **Visualización de tarjetas y saldo:** Simulación interactiva de tarjetas, movimientos y recargas.
 
-Los archivos opcionales **no son obligatorios**: si no existen, el banner se
-oculta solo y las tarjetas conservan su degradado original. Nada se rompe.
-Puedes agregarlos de a uno.
+## 🚀 Despliegue en Vercel
 
-## Cambiar de formato
+1. Ve a [Vercel](https://vercel.com) e inicia sesión con tu cuenta de GitHub.
+2. Haz clic en **"Add New Project"** y selecciona el repositorio `loames990/WALLET`.
+3. Deja los valores por defecto (Framework Preset: **Other** / Root Directory: `./`).
+4. Haz clic en **Deploy**.
 
-Los nombres, **con su extensión**, están en la constante `IMG` dentro de
-`index.html`. Si subes `wallet-hero.png` en vez de `.jpg`, ajusta ahí el valor.
+## 🛠️ Estructura del Proyecto
 
-## Peso de las imágenes
-
-Los fondos están comprimidos a **900 px de ancho y JPEG calidad 78**
-(de 3.8 MB a 252 KB en total). Si reemplazas alguno, respeta ese orden de
-magnitud: un fondo de 2 MB arruina la carga en redes móviles, que es
-justamente el escenario de uso de esta aplicación.
-
-El ícono se deja en PNG porque necesita transparencia.
-
-## Nota al abrir el prototipo
-
-Las imágenes **no cargan** si abres `index.html` con doble clic (`file://`).
-Usa un servidor local:
-
-```powershell
-python -m http.server 8080
 ```
+.
+├── assets/
+│   └── img/                 # Íconos, banners y recursos gráficos
+│       ├── icon-192.png
+│       ├── icon-512.png
+│       ├── icono_wallet.png
+│       ├── home-hero.jpg
+│       ├── walle1.jpg
+│       └── README.md
+├── index.html               # Aplicación principal
+├── manifest.webmanifest     # Manifiesto de la PWA
+├── sw.js                    # Service Worker (Caché y soporte offline)
+├── vercel.json              # Configuración y cabeceras de seguridad para Vercel
+├── .gitignore               # Archivos ignorados por Git
+└── README.md                # Documentación del proyecto
+```
+
+## 💻 Desarrollo Local
+
+Para probar localmente (requerido para probar Service Workers y Assets):
+
+```bash
+# Con Python
+python -m http.server 8080
+
+# O con npx serve
+npx serve .
+```
+
+Luego abre tu navegador en `http://localhost:8080`.
