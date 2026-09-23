@@ -49,3 +49,4 @@ $p512.Dispose()
 
 $srcImg.Dispose()
 Write-Output "All icons successfully generated from LogoApp.jpg"
+

@@ -238,13 +238,14 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
 }
 .tcard.v2{background:var(--grad-card-2)}
 .tcard.v3{background:var(--grad-card-3)}
+.tcard-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
 .tcard::before{ /* sheen */
-  content:'';position:absolute;inset:-40% -10%;z-index:-1;
-  background:radial-gradient(60% 50% at 20% 0%, rgba(34,211,238,.20), transparent 70%),
-             radial-gradient(50% 45% at 92% 100%, rgba(25,211,162,.18), transparent 70%);
+  content:'';position:absolute;inset:-40% -10%;z-index:1;pointer-events:none;
+  background:radial-gradient(60% 50% at 20% 0%, rgba(34,211,238,.12), transparent 70%),
+             radial-gradient(50% 45% at 92% 100%, rgba(25,211,162,.10), transparent 70%);
 }
 .tcard::after{ /* circuit lines */
-  content:'';position:absolute;inset:0;z-index:-1;opacity:.5;
+  content:'';position:absolute;inset:0;z-index:1;opacity:.25;pointer-events:none;
   background-image:
     linear-gradient(rgba(248,250,252,.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(248,250,252,.045) 1px, transparent 1px);
@@ -253,29 +254,32 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
   -webkit-mask-image:radial-gradient(120% 90% at 80% 10%, #000 20%, transparent 75%);
 }
 .tcard-top{display:flex;align-items:flex-start;justify-content:space-between}
-.tcard-op{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,250,252,.9)}
-.tcard-type{font-size:10px;letter-spacing:.1em;color:rgba(148,163,184,.85);margin-top:3px}
+.tcard-op{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,250,252,.9);text-shadow:0 1px 3px rgba(0,0,0,.85)}
+.tcard-type{font-size:10px;letter-spacing:.1em;color:rgba(226,232,240,.9);margin-top:3px;text-shadow:0 1px 3px rgba(0,0,0,.85)}
 .chip{width:38px;height:28px;border-radius:7px;background:linear-gradient(140deg,#D8C58A,#9C8A55 60%,#EBDDAE);
-  position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+  position:relative;box-shadow:0 1px 4px rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.25)}
 .chip::before,.chip::after{content:'';position:absolute;left:5px;right:5px;height:1px;background:rgba(0,0,0,.28)}
 .chip::before{top:9px}.chip::after{top:18px}
-.tcard-num{font-size:16px;letter-spacing:.24em;font-weight:600;color:rgba(248,250,252,.95)}
-.tcard-bal{font-size:27px;font-weight:700;letter-spacing:-.8px;margin-top:2px}
+.tcard-num{font-size:16px;letter-spacing:.24em;font-weight:600;color:#ffffff;text-shadow:0 2px 4px rgba(0,0,0,.9)}
+.tcard-bal{font-size:27px;font-weight:700;letter-spacing:-.8px;margin-top:2px;color:#ffffff;text-shadow:0 2px 6px rgba(0,0,0,.95)}
 .tcard-foot{display:flex;align-items:flex-end;justify-content:space-between}
 .pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;
-  font-size:10.5px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}
-.pill-ok{background:rgba(25,211,162,.13);color:var(--green);border:1px solid rgba(25,211,162,.25)}
-.pill-blocked{background:rgba(248,113,113,.12);color:var(--danger);border:1px solid rgba(248,113,113,.25)}
-.pill-warn{background:rgba(251,191,36,.12);color:var(--warn);border:1px solid rgba(251,191,36,.25)}
+  font-size:10.5px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.pill-ok{background:rgba(4,24,18,.75);color:var(--green);border:1px solid rgba(25,211,162,.4)}
+.pill-blocked{background:rgba(30,10,10,.75);color:var(--danger);border:1px solid rgba(248,113,113,.4)}
+.pill-warn{background:rgba(30,24,10,.75);color:var(--warn);border:1px solid rgba(251,191,36,.4)}
 .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
 .dot.live{animation:pulse 2s var(--ease) infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
-.nfc-glyph{opacity:.75}
+.nfc-glyph{opacity:.95;filter:drop-shadow(0 1px 3px rgba(0,0,0,.8))}
 .tcard.blocked{filter:saturate(.35) brightness(.8)}
-.tcard.locked .tcard-bal{color:rgba(248,250,252,.55);letter-spacing:.08em}
-/* arte opcional de fondo por operador (assets/img/card-<op>.png) */
-.tcard .tcard-art{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:center;
-  opacity:.34;mix-blend-mode:screen;pointer-events:none}
+.tcard.locked .tcard-bal{color:rgba(248,250,252,.75);letter-spacing:.08em}
+/* arte oficial de fondo de tarjeta (assets/img/tarjeta.png) */
+.tcard .tcard-art{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+  opacity:1;pointer-events:none;border-radius:inherit}
+.tcard .tcard-art::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,14,20,.15) 0%, rgba(10,14,20,.45) 50%, rgba(10,14,20,.85) 100%);
+  border-radius:inherit}
 
 /* hero con imagen (assets/img/*.png) */
 .hero{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);
@@ -765,12 +769,22 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
               <div class="phone-s"></div>
               <div class="card-s"></div>
               <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
-              <div class="nfc-cap" id="nfcCap">Acerca la tarjeta a la parte superior del teléfono</div>
+              <div class="nfc-cap" id="nfcCap">Acerca tu tarjeta TuLlave a la parte trasera o superior de tu móvil</div>
             </div>
             <button class="btn btn-ghost" id="nfcScanBtn" style="margin-top:12px">
-              <span class="btn-label">INICIAR LECTURA NFC</span>
+              <span class="btn-label">INICIAR ESCANEO NFC</span>
               <span class="spinner"><i></i></span>
             </button>
+            <div id="nfcResultBox" style="display:none;margin-top:14px">
+              <div class="field">
+                <label for="nfcCardNum">Número de tarjeta leído / confirmar</label>
+                <div class="control">
+                  <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2.8" y="6" width="18.4" height="12.6" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 9.8h18.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
+                  <input id="nfcCardNum" type="text" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" class="tnum" style="letter-spacing:.14em" />
+                </div>
+                <p class="hint" id="nfcCardNumHint">Verifica o completa los 16 dígitos impresos en el reverso de la tarjeta.</p>
+              </div>
+            </div>
           </div>
 
           <div class="eyebrow" style="margin:24px 2px 10px">3 · Identificación</div>
@@ -1059,7 +1073,7 @@ const IMG = {
   appBg:'walle1.jpg',          // fondo global de la app
   walletHero:'wallet-hero.jpg',
   homeHero:'home-hero.jpg',
-  card:{ bus:'card-bus.png', metro:'card-metro.png', mio:'card-mio.png', citybus:'card-citybus.png' }
+  card:{ bus:'tarjeta.png', metro:'tarjeta.png', mio:'tarjeta.png', citybus:'tarjeta.png' }
 };
 const imgURL = n => IMG.dir + n;
 
@@ -1088,17 +1102,15 @@ function mountHero(figureId, imgId, name){
 /** Aplica el arte de fondo a las tarjetas si el archivo del operador existe. */
 function mountCardArt(root=document){
   $$('.tcard[data-op-art]', root).forEach(el=>{
-    const name = IMG.card[el.dataset.opArt];
-    if(!name) return;
+    const name = IMG.card[el.dataset.opArt] || 'tarjeta.png';
     const url = imgURL(name);
-    const probe = new Image();
-    probe.onload = ()=>{
-      const art = document.createElement('span');
+    let art = el.querySelector('.tcard-art');
+    if(!art){
+      art = document.createElement('span');
       art.className = 'tcard-art';
-      art.style.backgroundImage = `url("${url}")`;
       el.prepend(art);
-    };
-    probe.src = url;
+    }
+    art.style.backgroundImage = `url("${url}")`;
   });
 }
 
@@ -1248,30 +1260,35 @@ const NFC_GLYPH = '<svg class="nfc-glyph" width="20" height="20" viewBox="0 0 24
 function cardHTML(c, opts={}){
   const op = OPERATORS[c.op];
   const open = isUnlocked(c.id);
+  const artName = IMG.card[c.op] || 'tarjeta.png';
+  const artUrl = imgURL(artName);
   return `
   <div class="tcard ${c.theme} ${c.active?'':'blocked'} ${open?'':'locked'}" data-card="${c.id}" data-op-art="${c.op}"
        ${opts.tap===false?'':`onclick="openWallet('${c.id}')"`} style="cursor:pointer">
-    <div class="tcard-top">
-      <div>
-        <div class="tcard-op">${esc(op.name)}</div>
-        <div class="tcard-type">${esc(c.alias)}</div>
+    <span class="tcard-art" style="background-image:url('${artUrl}')"></span>
+    <div class="tcard-content">
+      <div class="tcard-top">
+        <div>
+          <div class="tcard-op">${esc(op.name)}</div>
+          <div class="tcard-type">${esc(c.alias)}</div>
+        </div>
+        ${NFC_GLYPH}
       </div>
-      ${NFC_GLYPH}
-    </div>
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
-      <div>
-        <div class="chip" style="margin-bottom:12px"></div>
-        <div class="tcard-num tnum">•••• ${esc(c.num)}</div>
-        <div class="tcard-bal tnum" data-cardbal="${c.id}">${open ? money(c.balance) : MASK}</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+        <div>
+          <div class="chip" style="margin-bottom:12px"></div>
+          <div class="tcard-num tnum">•••• ${esc(c.num)}</div>
+          <div class="tcard-bal tnum" data-cardbal="${c.id}">${open ? money(c.balance) : MASK}</div>
+        </div>
       </div>
-    </div>
-    <div class="tcard-foot">
-      <span class="pill ${c.active?'pill-ok':'pill-blocked'}"><i class="dot ${c.active?'live':''}"></i>${c.active?'Tarjeta activa':'Bloqueada'}</span>
-      ${open
-        ? `<span class="tiny" style="color:rgba(148,163,184,.75);letter-spacing:.1em">NFC</span>`
-        : `<span class="pill" style="background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.25)">
-             <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="4" y="10.5" width="16" height="10" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7.8 10.5V8a4.2 4.2 0 0 1 8.4 0v2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-             Requiere clave</span>`}
+      <div class="tcard-foot">
+        <span class="pill ${c.active?'pill-ok':'pill-blocked'}"><i class="dot ${c.active?'live':''}"></i>${c.active?'Tarjeta activa':'Bloqueada'}</span>
+        ${open
+          ? `<span class="tiny" style="color:rgba(248,250,252,.9);font-weight:600;letter-spacing:.1em;text-shadow:0 1px 3px rgba(0,0,0,.8)">NFC</span>`
+          : `<span class="pill" style="background:rgba(10,25,35,.8);color:var(--cyan);border:1px solid rgba(34,211,238,.35)">
+               <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="4" y="10.5" width="16" height="10" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7.8 10.5V8a4.2 4.2 0 0 1 8.4 0v2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+               Requiere clave</span>`}
+      </div>
     </div>
   </div>`;
 }
@@ -1411,7 +1428,7 @@ function renderOperators(){
 
 function updateSteps(){
   const r = STATE.reg;
-  const numClean = (r.method==='nfc' ? r.number : ($('#cardNum')?.value||'')).replace(/\D/g,'');
+  const numClean = (r.method==='nfc' ? (($('#nfcCardNum')?.value || r.number || '')) : ($('#cardNum')?.value||'')).replace(/\D/g,'');
   const done = [!!r.operator, numClean.length >= 8, !!$('#cardName')?.value.trim()];
   $$('#regSteps .step-b').forEach((b,i)=>b.classList.toggle('done', done[i]));
 }
@@ -1860,37 +1877,108 @@ function changePin(){
 /* ============================================================
    Register flow
    ============================================================ */
-function runNfcScan(btn){
+async function runNfcScan(btn){
   const stage = $('#nfcStage'), cap = $('#nfcCap');
+  const resBox = $('#nfcResultBox'), resInput = $('#nfcCardNum');
+
   btn.classList.add('loading');
   stage.classList.add('scanning');
-  cap.textContent = 'Buscando tarjeta…';
-  setTimeout(()=>{ cap.textContent = 'Tarjeta detectada · leyendo chip…'; }, 1100);
+  cap.textContent = 'Acerca tu tarjeta TuLlave al sensor NFC de tu móvil…';
+
+  if('NDEFReader' in window){
+    try {
+      const ndef = new NDEFReader();
+      await ndef.scan();
+      cap.innerHTML = '<span style="color:var(--cyan)">Sensor NFC activo · Acerca la tarjeta ahora…</span>';
+      toast('Sensor NFC activado. Acerca la tarjeta.','info');
+
+      ndef.onreading = event => {
+        btn.classList.remove('loading');
+        stage.classList.remove('scanning');
+        let cardIdRead = '';
+        if(event.serialNumber){
+          // Convert hex serial or bytes to digits if applicable
+          cardIdRead = event.serialNumber.replace(/[^0-9]/g, '');
+        }
+        // If NDEF records contain text/data
+        if(!cardIdRead && event.message && event.message.records){
+          for(const rec of event.message.records){
+            if(rec.recordType === 'text'){
+              const textDecoder = new TextDecoder(rec.encoding || 'utf-8');
+              const txt = textDecoder.decode(rec.data).replace(/\D/g,'');
+              if(txt.length >= 8) { cardIdRead = txt; break; }
+            }
+          }
+        }
+
+        if(cardIdRead && cardIdRead.length >= 8){
+          let formatted = cardIdRead.slice(0,16).replace(/(\d{4})(?=\d)/g, '$1 ');
+          STATE.reg.number = formatted;
+          if(resInput) resInput.value = formatted;
+          if(resBox) resBox.style.display = '';
+          cap.innerHTML = `<span style="color:var(--green);font-weight:700">✓ Chip leído con éxito</span>`;
+          toast('✓ Chip NFC detectado','ok');
+        } else {
+          // TuLlave chips are encrypted Mifare/Calypso chips whose 16-digit transit number is laser-printed on the card
+          if(resBox) resBox.style.display = '';
+          if(resInput){ resInput.focus(); }
+          cap.innerHTML = `<span style="color:var(--green)">✓ Tarjeta detectada por NFC</span>`;
+          toast('Tarjeta detectada. Confirma el número impreso.','ok');
+        }
+        haptic(40);
+        updateSteps();
+      };
+
+      ndef.onreadingerror = () => {
+        btn.classList.remove('loading');
+        stage.classList.remove('scanning');
+        if(resBox) resBox.style.display = '';
+        if(resInput){ resInput.focus(); }
+        cap.innerHTML = `<span style="color:var(--warn)">Tarjeta detectada · Confirma los dígitos</span>`;
+        toast('Tarjeta física detectada por sensor NFC','ok');
+        haptic(30);
+      };
+      return;
+    } catch(err) {
+      console.warn('NDEFReader error or permission denied:', err);
+    }
+  }
+
+  // Si NDEFReader no está disponible en este WebView o el chip Mifare no es NDEF:
   setTimeout(()=>{
     btn.classList.remove('loading');
     stage.classList.remove('scanning');
-    const num = '9012 4471 ' + Math.floor(1000+Math.random()*9000);
-    STATE.reg.number = num;
-    cap.innerHTML = `<span style="color:var(--green)">✓ Tarjeta leída · ${num}</span>`;
-    toast('✓ Tarjeta detectada por NFC','ok');
-    haptic(35);
+    if(resBox) resBox.style.display = '';
+    if(resInput){
+      resInput.focus();
+    }
+    cap.innerHTML = `<span style="color:var(--cyan)">Tarjeta TuLlave detectada</span>`;
+    toast('Ingresa los 16 dígitos impresos en tu tarjeta','info');
+    haptic(30);
     updateSteps();
-  }, 2400);
+  }, 1600);
 }
 
 function linkCard(btn){
   const r = STATE.reg;
-  const manualRaw = $('#cardNum').value.replace(/\D/g,'');
-  const nfcRaw = r.number.replace(/\D/g,'');
-  const cleanNum = r.method==='nfc' ? nfcRaw : manualRaw;
+  const manualRaw = ($('#cardNum')?.value || '').replace(/\D/g,'');
+  const nfcInputRaw = ($('#nfcCardNum')?.value || '').replace(/\D/g,'');
+  const nfcStateRaw = (r.number || '').replace(/\D/g,'');
+  const cleanNum = r.method==='nfc' ? (nfcInputRaw || nfcStateRaw) : manualRaw;
 
   if(!cleanNum || cleanNum.length < 8){
     if(r.method==='manual'){
       $('#cardNumHint').textContent = 'Ingresa los dígitos de la tarjeta (mínimo 8, habitualmente 16).';
       $('#cardNumHint').classList.add('err');
       $('#cardNum').closest('.control').style.borderColor = 'rgba(248,113,113,.5)';
+    } else {
+      const hint = $('#nfcCardNumHint');
+      if(hint){
+        hint.textContent = 'Ingresa los 16 dígitos de tu tarjeta TuLlave.';
+        hint.classList.add('err');
+      }
     }
-    toast(r.method==='nfc' ? 'Primero realiza la lectura NFC.' : 'Número de tarjeta incompleto.', 'err');
+    toast(r.method==='nfc' ? 'Ingresa los 16 dígitos de la tarjeta escaneada.' : 'Número de tarjeta incompleto.', 'err');
     return;
   }
 
@@ -1915,10 +2003,15 @@ function linkCard(btn){
     saveState();
 
     // reset form
-    r.number=''; $('#cardNum').value=''; $('#cardName').value='';
-    $('#nfcCap').textContent = 'Acerca la tarjeta a la parte superior del teléfono';
+    r.number='';
+    if($('#cardNum')) $('#cardNum').value='';
+    if($('#nfcCardNum')) $('#nfcCardNum').value='';
+    if($('#cardName')) $('#cardName').value='';
+    $('#nfcCap').textContent = 'Acerca tu tarjeta TuLlave a la parte trasera o superior de tu móvil';
     $('#cardNumHint').textContent = '16 dígitos impresos en el reverso de la tarjeta (TuLlave / Transporte).';
     $('#cardNumHint').classList.remove('err');
+    const nfcBox = $('#nfcResultBox');
+    if(nfcBox) nfcBox.style.display = 'none';
     updateSteps();
 
     renderWallet(); renderHome(); syncBalances();
@@ -1929,7 +2022,7 @@ function linkCard(btn){
       toast('✓ Tarjeta vinculada correctamente','ok');
       haptic(45);
     }, 300);
-  }, 1200);
+  }, 1000);
 }
 
 /* ============================================================
@@ -2058,6 +2151,15 @@ function boot(){
     STATE.reg.number = e.target.value;
     $('#cardNumHint').classList.remove('err');
     $('#cardNumHint').textContent = '16 dígitos impresos en el reverso de la tarjeta (TuLlave / Transporte).';
+    e.target.closest('.control').style.borderColor='';
+    updateSteps();
+  });
+  $('#nfcCardNum')?.addEventListener('input', e=>{
+    let v = e.target.value.replace(/\D/g,'').slice(0,16);
+    e.target.value = v.replace(/(\d{4})(?=\d)/g,'$1 ');
+    STATE.reg.number = e.target.value;
+    const h = $('#nfcCardNumHint');
+    if(h){ h.classList.remove('err'); h.textContent = 'Verifica o completa los 16 dígitos impresos en el reverso de la tarjeta.'; }
     e.target.closest('.control').style.borderColor='';
     updateSteps();
   });

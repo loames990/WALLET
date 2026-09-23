@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -7,7 +7,7 @@
 <title>Smart Transit Wallet</title>
 
 <!-- Ícono de la aplicación -->
-<link rel="icon" type="image/png" href="assets/img/icono_wallet.png" />
+<link rel="icon" type="image/jpeg" href="assets/img/LogoApp.jpg" />
 <link rel="apple-touch-icon" sizes="192x192" href="assets/img/icon-192.png" />
 <link rel="manifest" href="manifest.webmanifest" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -90,14 +90,6 @@ button{cursor:pointer}
   opacity:0;transition:opacity 1.1s var(--ease-out);
 }
 #appBg.on{opacity:1}
-.demo-flag{
-  position:absolute;top:0;left:0;right:0;z-index:200;height:20px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:8.5px;font-weight:700;letter-spacing:.16em;
-  color:rgba(251,191,36,.95);background:rgba(251,191,36,.10);
-  border-bottom:1px solid rgba(251,191,36,.22);pointer-events:none;
-}
-.demo-flag + .statusbar{margin-top:20px}
 #appBg::after{
   content:'';position:absolute;inset:0;
   background:
@@ -246,13 +238,14 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
 }
 .tcard.v2{background:var(--grad-card-2)}
 .tcard.v3{background:var(--grad-card-3)}
+.tcard-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
 .tcard::before{ /* sheen */
-  content:'';position:absolute;inset:-40% -10%;z-index:-1;
-  background:radial-gradient(60% 50% at 20% 0%, rgba(34,211,238,.20), transparent 70%),
-             radial-gradient(50% 45% at 92% 100%, rgba(25,211,162,.18), transparent 70%);
+  content:'';position:absolute;inset:-40% -10%;z-index:1;pointer-events:none;
+  background:radial-gradient(60% 50% at 20% 0%, rgba(34,211,238,.12), transparent 70%),
+             radial-gradient(50% 45% at 92% 100%, rgba(25,211,162,.10), transparent 70%);
 }
 .tcard::after{ /* circuit lines */
-  content:'';position:absolute;inset:0;z-index:-1;opacity:.5;
+  content:'';position:absolute;inset:0;z-index:1;opacity:.25;pointer-events:none;
   background-image:
     linear-gradient(rgba(248,250,252,.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(248,250,252,.045) 1px, transparent 1px);
@@ -261,29 +254,32 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
   -webkit-mask-image:radial-gradient(120% 90% at 80% 10%, #000 20%, transparent 75%);
 }
 .tcard-top{display:flex;align-items:flex-start;justify-content:space-between}
-.tcard-op{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,250,252,.9)}
-.tcard-type{font-size:10px;letter-spacing:.1em;color:rgba(148,163,184,.85);margin-top:3px}
+.tcard-op{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(248,250,252,.9);text-shadow:0 1px 3px rgba(0,0,0,.85)}
+.tcard-type{font-size:10px;letter-spacing:.1em;color:rgba(226,232,240,.9);margin-top:3px;text-shadow:0 1px 3px rgba(0,0,0,.85)}
 .chip{width:38px;height:28px;border-radius:7px;background:linear-gradient(140deg,#D8C58A,#9C8A55 60%,#EBDDAE);
-  position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+  position:relative;box-shadow:0 1px 4px rgba(0,0,0,.45), inset 0 0 0 1px rgba(0,0,0,.25)}
 .chip::before,.chip::after{content:'';position:absolute;left:5px;right:5px;height:1px;background:rgba(0,0,0,.28)}
 .chip::before{top:9px}.chip::after{top:18px}
-.tcard-num{font-size:16px;letter-spacing:.24em;font-weight:600;color:rgba(248,250,252,.95)}
-.tcard-bal{font-size:27px;font-weight:700;letter-spacing:-.8px;margin-top:2px}
+.tcard-num{font-size:16px;letter-spacing:.24em;font-weight:600;color:#ffffff;text-shadow:0 2px 4px rgba(0,0,0,.9)}
+.tcard-bal{font-size:27px;font-weight:700;letter-spacing:-.8px;margin-top:2px;color:#ffffff;text-shadow:0 2px 6px rgba(0,0,0,.95)}
 .tcard-foot{display:flex;align-items:flex-end;justify-content:space-between}
 .pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:99px;
-  font-size:10.5px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}
-.pill-ok{background:rgba(25,211,162,.13);color:var(--green);border:1px solid rgba(25,211,162,.25)}
-.pill-blocked{background:rgba(248,113,113,.12);color:var(--danger);border:1px solid rgba(248,113,113,.25)}
-.pill-warn{background:rgba(251,191,36,.12);color:var(--warn);border:1px solid rgba(251,191,36,.25)}
+  font-size:10.5px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.pill-ok{background:rgba(4,24,18,.75);color:var(--green);border:1px solid rgba(25,211,162,.4)}
+.pill-blocked{background:rgba(30,10,10,.75);color:var(--danger);border:1px solid rgba(248,113,113,.4)}
+.pill-warn{background:rgba(30,24,10,.75);color:var(--warn);border:1px solid rgba(251,191,36,.4)}
 .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
 .dot.live{animation:pulse 2s var(--ease) infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
-.nfc-glyph{opacity:.75}
+.nfc-glyph{opacity:.95;filter:drop-shadow(0 1px 3px rgba(0,0,0,.8))}
 .tcard.blocked{filter:saturate(.35) brightness(.8)}
-.tcard.locked .tcard-bal{color:rgba(248,250,252,.55);letter-spacing:.08em}
-/* arte opcional de fondo por operador (assets/img/card-<op>.png) */
-.tcard .tcard-art{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:center;
-  opacity:.34;mix-blend-mode:screen;pointer-events:none}
+.tcard.locked .tcard-bal{color:rgba(248,250,252,.75);letter-spacing:.08em}
+/* arte oficial de fondo de tarjeta (assets/img/tarjeta.png) */
+.tcard .tcard-art{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+  opacity:1;pointer-events:none;border-radius:inherit}
+.tcard .tcard-art::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,14,20,.15) 0%, rgba(10,14,20,.45) 50%, rgba(10,14,20,.85) 100%);
+  border-radius:inherit}
 
 /* hero con imagen (assets/img/*.png) */
 .hero{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);
@@ -557,8 +553,8 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
   <header class="sc-head">
     <div>
       <div class="brand">
-        <div class="mark">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 17.5h2.2a2 2 0 0 0 1.9-1.4l1.1-3.4" stroke="#19D3A2" stroke-width="1.7" stroke-linecap="round"/><rect x="3" y="5.5" width="13" height="8.6" rx="2.4" stroke="#22D3EE" stroke-width="1.7"/><path d="M3 8.6h13" stroke="#22D3EE" stroke-width="1.7"/><path d="M18.4 8.1a5 5 0 0 1 0 7.6M20.9 5.7a8.4 8.4 0 0 1 0 12.4" stroke="#19D3A2" stroke-width="1.7" stroke-linecap="round"/><circle cx="16.2" cy="12" r="1.15" fill="#19D3A2"/></svg>
+        <div class="mark" style="overflow:hidden;background:#000">
+          <img src="assets/img/LogoApp.jpg" alt="Logo" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display='none'" />
         </div>
         <div>
           <div class="brand-name">SMART TRANSIT WALLET</div>
@@ -582,7 +578,7 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
   <footer class="sc-foot">
     <p>Prototipo de alta fidelidad. Operadores, estaciones, saldos y transacciones son ficticios y no representan entidades reales.<br>Diseñado para presentación ante equipos de desarrollo y entidades públicas de movilidad.</p>
     <div class="sc-cta">
-      <button class="sc-btn g" onclick="scReload()">↻ Reiniciar demo</button>
+      <button class="sc-btn g" onclick="scReload()">↻ Reiniciar</button>
       <button class="sc-btn p" onclick="scOpenMobile()">Ver como app móvil →</button>
     </div>
   </footer>
@@ -596,16 +592,9 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
 
   <div id="appBg"></div>
 
-  <!-- Aviso permanente: la demo es pública y no debe confundirse con un servicio real. -->
-  <div class="demo-flag" title="Prototipo de demostración. No procesa pagos reales.">PROTOTIPO · DATOS SIMULADOS</div>
-
   <div class="statusbar">
     <span id="clock" class="tnum">08:42</span>
-    <span class="sb-r">
-      <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="7" width="2.6" height="4" rx=".8" fill="currentColor"/><rect x="4.2" y="5" width="2.6" height="6" rx=".8" fill="currentColor"/><rect x="8.4" y="2.6" width="2.6" height="8.4" rx=".8" fill="currentColor"/><rect x="12.6" y="0" width="2.6" height="11" rx=".8" fill="currentColor" opacity=".35"/></svg>
-      <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 9.6 1 3.3a9.2 9.2 0 0 1 13 0L7.5 9.6Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" opacity=".55"/><circle cx="7.5" cy="8.6" r="1.3" fill="currentColor"/></svg>
-      <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x=".6" y=".6" width="19" height="9.8" rx="2.8" stroke="currentColor" opacity=".45" stroke-width="1.1"/><rect x="2.2" y="2.2" width="14.6" height="6.6" rx="1.7" fill="currentColor"/><path d="M21.4 4v3a2 2 0 0 0 0-3Z" fill="currentColor" opacity=".45"/></svg>
-    </span>
+    <span class="sb-r" style="font-size:10.5px;font-weight:700;letter-spacing:.12em">SMART TRANSIT WALLET</span>
   </div>
 
   <div id="toasts"></div>
@@ -615,8 +604,8 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
     <!-- ========== SCREEN 2 · DASHBOARD ========== -->
     <section class="screen has-tabbar" data-screen="home">
       <div class="topbar" style="padding-top:10px;padding-bottom:6px">
-        <div class="mark" style="width:34px;height:34px;border-radius:11px">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 17.5h2.2a2 2 0 0 0 1.9-1.4l1.1-3.4" stroke="#19D3A2" stroke-width="1.7" stroke-linecap="round"/><rect x="3" y="5.5" width="13" height="8.6" rx="2.4" stroke="#22D3EE" stroke-width="1.7"/><path d="M3 8.6h13" stroke="#22D3EE" stroke-width="1.7"/><path d="M18.4 8.1a5 5 0 0 1 0 7.6M20.9 5.7a8.4 8.4 0 0 1 0 12.4" stroke="#19D3A2" stroke-width="1.7" stroke-linecap="round"/><circle cx="16.2" cy="12" r="1.15" fill="#19D3A2"/></svg>
+        <div class="mark" style="width:34px;height:34px;border-radius:11px;overflow:hidden;background:#000">
+          <img src="assets/img/LogoApp.jpg" alt="Logo" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display='none'" />
         </div>
         <div style="flex:1;min-width:0">
           <div class="brand-name" style="font-size:11.5px">SMART TRANSIT WALLET</div>
@@ -625,9 +614,11 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
       </div>
 
       <div class="topbar" style="padding-top:0">
-        <div class="avatar">CH</div>
+        <div class="avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.7" stroke="currentColor" stroke-width="1.6"/><path d="M5 20.5v-1.8a4.2 4.2 0 0 1 4.2-4.2h5.6a4.2 4.2 0 0 1 4.2 4.2v1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:16px;font-weight:650;letter-spacing:-.3px" id="greet">Buenos días, Charlin</div>
+          <div style="font-size:16px;font-weight:650;letter-spacing:-.3px" id="greet">Buenos días</div>
           <div class="tiny dim" style="margin-top:2px">Tu movilidad está lista.</div>
         </div>
         <button class="icobtn" style="position:relative" onclick="toast('Tienes 2 notificaciones nuevas.','info')">
@@ -666,7 +657,7 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
           </div>
 
           <div class="qa">
-            <button class="qa-item ripple-host" onclick="openTopUp('c1')">
+            <button class="qa-item ripple-host" onclick="openTopUp(currentCardId())">
               <span class="qa-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 5.5v13M5.5 12h13" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" opacity=".35"/></svg></span>
               <span>Recargar</span>
             </button>
@@ -750,39 +741,49 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
 
           <div class="eyebrow" style="margin:24px 2px 10px">2 · Método de vinculación</div>
           <div class="seg" id="methodSeg">
-            <button class="on" data-method="nfc">
+            <button class="on" data-method="manual">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 18.5 5 14.8 15.4 4.4a2 2 0 0 1 2.8 0l1.4 1.4a2 2 0 0 1 0 2.8L9.2 19l-3.7 1-1.5-1.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              Manual (16 dígitos)
+            </button>
+            <button data-method="nfc">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8.5 15.5a5 5 0 0 1 0-7M11.8 18.4a9.2 9.2 0 0 1 0-12.8M15.1 21a13.3 13.3 0 0 1 0-18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               Escanear con NFC
-            </button>
-            <button data-method="manual">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 18.5 5 14.8 15.4 4.4a2 2 0 0 1 2.8 0l1.4 1.4a2 2 0 0 1 0 2.8L9.2 19l-3.7 1-1.5-1.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-              Manual
-            </button>
-          </div>
-
-          <!-- NFC panel -->
-          <div id="nfcPanel" style="margin-top:14px">
-            <div class="nfc-stage" id="nfcStage">
-              <div class="phone-s"></div>
-              <div class="card-s"></div>
-              <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
-              <div class="nfc-cap" id="nfcCap">Acerca la tarjeta a la parte superior del teléfono</div>
-            </div>
-            <button class="btn btn-ghost" id="nfcScanBtn" style="margin-top:12px">
-              <span class="btn-label">INICIAR LECTURA NFC</span>
-              <span class="spinner"><i></i></span>
             </button>
           </div>
 
           <!-- Manual panel -->
-          <div id="manualPanel" style="display:none;margin-top:14px">
+          <div id="manualPanel" style="margin-top:14px">
             <div class="field">
               <label for="cardNum">Número de tarjeta</label>
               <div class="control">
                 <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2.8" y="6" width="18.4" height="12.6" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 9.8h18.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
-                <input id="cardNum" type="text" inputmode="numeric" maxlength="14" placeholder="0000 0000 0000" class="tnum" style="letter-spacing:.14em" />
+                <input id="cardNum" type="text" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" class="tnum" style="letter-spacing:.14em" />
               </div>
-              <p class="hint" id="cardNumHint">12 dígitos impresos en el reverso de la tarjeta.</p>
+              <p class="hint" id="cardNumHint">16 dígitos impresos en el reverso de la tarjeta (TuLlave / Transporte).</p>
+            </div>
+          </div>
+
+          <!-- NFC panel -->
+          <div id="nfcPanel" style="display:none;margin-top:14px">
+            <div class="nfc-stage" id="nfcStage">
+              <div class="phone-s"></div>
+              <div class="card-s"></div>
+              <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
+              <div class="nfc-cap" id="nfcCap">Acerca tu tarjeta TuLlave a la parte trasera o superior de tu móvil</div>
+            </div>
+            <button class="btn btn-ghost" id="nfcScanBtn" style="margin-top:12px">
+              <span class="btn-label">INICIAR ESCANEO NFC</span>
+              <span class="spinner"><i></i></span>
+            </button>
+            <div id="nfcResultBox" style="display:none;margin-top:14px">
+              <div class="field">
+                <label for="nfcCardNum">Número de tarjeta leído / confirmar</label>
+                <div class="control">
+                  <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2.8" y="6" width="18.4" height="12.6" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 9.8h18.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
+                  <input id="nfcCardNum" type="text" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" class="tnum" style="letter-spacing:.14em" />
+                </div>
+                <p class="hint" id="nfcCardNumHint">Verifica o completa los 16 dígitos impresos en el reverso de la tarjeta.</p>
+              </div>
             </div>
           </div>
 
@@ -933,17 +934,18 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
       <div class="screen-body scroll">
         <div class="stagger">
           <div class="panel" style="display:flex;gap:14px;align-items:center">
-            <div class="avatar" style="width:54px;height:54px;border-radius:18px;font-size:17px">CH</div>
+            <div class="avatar" style="width:54px;height:54px;border-radius:18px;font-size:17px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.7" stroke="currentColor" stroke-width="1.6"/><path d="M5 20.5v-1.8a4.2 4.2 0 0 1 4.2-4.2h5.6a4.2 4.2 0 0 1 4.2 4.2v1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
             <div style="flex:1">
-              <div class="h2">Charlin Landazury</div>
-              <div class="tiny dim" style="margin-top:4px">C.C. 00.000.000 · Datos de demostración</div>
-              <span class="pill pill-ok" style="margin-top:8px"><i class="dot"></i>Identidad verificada</span>
+              <div class="h2">Mi perfil</div>
+              <div class="tiny dim" style="margin-top:4px">Completa tus datos personales</div>
             </div>
           </div>
 
           <div class="grid2" style="margin-top:14px">
-            <div class="stat"><span class="eyebrow">Viajes 2026</span><b class="tnum">428</b></div>
-            <div class="stat"><span class="eyebrow">CO₂ evitado</span><b class="tnum">312 kg</b></div>
+            <div class="stat"><span class="eyebrow">Tarjetas vinculadas</span><b class="tnum" id="profileCardCount">0</b></div>
+            <div class="stat"><span class="eyebrow">Saldo disponible</span><b class="tnum" id="profileTotalBal">$0</b></div>
           </div>
 
           <button class="btn btn-primary" id="installBtn" hidden style="margin-top:14px" onclick="installApp()">
@@ -977,10 +979,15 @@ body.has-bg .nfc-stage{background-color:rgba(17,22,29,.72)}
             </button>
           </div>
 
-          <button class="btn btn-danger" style="margin-top:20px" onclick="lockAll()">
-            <span class="btn-label">BLOQUEAR TODAS LAS WALLETS</span>
-          </button>
-          <p class="tiny dim" style="text-align:center;margin-top:16px;line-height:1.6">Smart Transit Wallet · v1.0.0 (prototipo)<br>Sin registro ni inicio de sesión · Operadores y transacciones ficticios.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <button class="btn btn-ghost" onclick="lockAll()">
+              <span class="btn-label">BLOQUEAR TODAS LAS WALLETS</span>
+            </button>
+            <button class="btn btn-danger" onclick="resetAppData()">
+              <span class="btn-label">RESTABLECER APLICACIÓN</span>
+            </button>
+          </div>
+          <p class="tiny dim" style="text-align:center;margin-top:16px;line-height:1.6">Smart Transit Wallet · v1.0.0<br>Datos almacenados de forma segura en tu dispositivo.</p>
         </div>
       </div>
     </section>
@@ -1066,7 +1073,7 @@ const IMG = {
   appBg:'walle1.jpg',          // fondo global de la app
   walletHero:'wallet-hero.jpg',
   homeHero:'home-hero.jpg',
-  card:{ bus:'card-bus.png', metro:'card-metro.png', mio:'card-mio.png', citybus:'card-citybus.png' }
+  card:{ bus:'tarjeta.png', metro:'tarjeta.png', mio:'tarjeta.png', citybus:'tarjeta.png' }
 };
 const imgURL = n => IMG.dir + n;
 
@@ -1095,17 +1102,15 @@ function mountHero(figureId, imgId, name){
 /** Aplica el arte de fondo a las tarjetas si el archivo del operador existe. */
 function mountCardArt(root=document){
   $$('.tcard[data-op-art]', root).forEach(el=>{
-    const name = IMG.card[el.dataset.opArt];
-    if(!name) return;
+    const name = IMG.card[el.dataset.opArt] || 'tarjeta.png';
     const url = imgURL(name);
-    const probe = new Image();
-    probe.onload = ()=>{
-      const art = document.createElement('span');
+    let art = el.querySelector('.tcard-art');
+    if(!art){
+      art = document.createElement('span');
       art.className = 'tcard-art';
-      art.style.backgroundImage = `url("${url}")`;
       el.prepend(art);
-    };
-    probe.src = url;
+    }
+    art.style.backgroundImage = `url("${url}")`;
   });
 }
 
@@ -1116,33 +1121,65 @@ const OPERATORS = {
   citybus:  {name:'CITYBUS',  label:'Rutas zonales',         theme:'v2', ico:'bus'}
 };
 
+const STORAGE_KEY = 'STW_WALLET_DATA_V2';
+
 const STATE = {
   screen:'home',
-  /* Clave de pago: no hay registro ni login. La clave sólo se solicita
-     para abrir una wallet y para autorizar un pago. */
-  payPin:'4827',
+  payPin:'1234',
   unlocked:{},     // { cardId: timestampMs }  — vigencia de sesión por tarjeta
   pinTTL:120000,   // 2 minutos de vigencia tras desbloquear
   pinTries:0,
   activeCard:0,
   filter:'all',
-  reg:{ operator:'bus', method:'nfc', number:'', name:'' },
-  cards:[
-    {id:'c1', op:'bus',   alias:'Mi tarjeta principal', num:'4827', balance:48500, active:true,  theme:''},
-    {id:'c2', op:'mio',   alias:'MÍO Pass Cali',        num:'9281', balance:21200, active:true,  theme:'v3'}
-  ],
-  moves:[
-    {id:'TRX-9F42A1', card:'c1', type:'trip',   day:'23 SEP', time:'08:42', title:'Transporte', desc:'Portal Norte → Calle 72',       amount:-3500,  after:48500, op:'TRANSIT', station:'Portal Norte'},
-    {id:'TRX-9F41C7', card:'c1', type:'trip',   day:'23 SEP', time:'07:55', title:'Transporte', desc:'Calle 72 → Universidades',      amount:-3500,  after:52000, op:'TRANSIT', station:'Calle 72'},
-    {id:'TRX-9E88D3', card:'c1', type:'topup',  day:'22 SEP', time:'18:20', title:'Recarga',    desc:'Recarga electrónica · PSE',     amount:20000,  after:55500, op:'TRANSIT', station:'Canal digital'},
-    {id:'TRX-9E7712', card:'c1', type:'trip',   day:'22 SEP', time:'18:10', title:'Transporte', desc:'Museo → Portal Norte',          amount:-3500,  after:35500, op:'TRANSIT', station:'Museo Nacional'},
-    {id:'TRX-9E6501', card:'c1', type:'refund', day:'22 SEP', time:'09:14', title:'Devolución', desc:'Reverso por doble validación',  amount:3500,   after:39000, op:'TRANSIT', station:'Av. Jiménez'},
-    {id:'TRX-9D9944', card:'c1', type:'trip',   day:'21 SEP', time:'19:02', title:'Transporte', desc:'Calle 100 → Héroes',            amount:-3500,  after:35500, op:'TRANSIT', station:'Calle 100'},
-    {id:'TRX-9D8810', card:'c2', type:'trip',   day:'21 SEP', time:'07:31', title:'Transporte', desc:'Menga → Unidad Deportiva',      amount:-3200,  after:21200, op:'MIO PASS', station:'Menga'}
-  ]
+  reg:{ operator:'bus', method:'manual', number:'', name:'' },
+  cards:[],
+  moves:[]
 };
 
-const HISTORY = [32000, 29000, 35500, 39000, 55500, 52000, 48500];
+let HISTORY = [0, 0, 0, 0];
+
+function saveState(){
+  try {
+    const payload = {
+      payPin: STATE.payPin,
+      cards: STATE.cards,
+      moves: STATE.moves,
+      history: HISTORY
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch(e) {
+    console.error('Error saving state to localStorage', e);
+  }
+}
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed.payPin) STATE.payPin = parsed.payPin;
+      if(Array.isArray(parsed.cards)) STATE.cards = parsed.cards;
+      if(Array.isArray(parsed.moves)) STATE.moves = parsed.moves;
+      if(Array.isArray(parsed.history) && parsed.history.length) HISTORY = parsed.history;
+    }
+  } catch(e) {
+    console.error('Error loading state from localStorage', e);
+  }
+}
+
+function resetAppData(){
+  if(confirm('¿Deseas restablecer todos los datos de la aplicación y eliminar las tarjetas vinculadas?')){
+    localStorage.removeItem(STORAGE_KEY);
+    STATE.cards = [];
+    STATE.moves = [];
+    STATE.unlocked = {};
+    STATE.activeCard = 0;
+    STATE.payPin = '1234';
+    HISTORY = [0, 0, 0, 0];
+    renderHome(); renderWallet(); renderMoves(); renderChart(); syncBalances();
+    toast('Aplicación restablecida','info');
+  }
+}
 
 /* ============================================================
    Utils
@@ -1223,30 +1260,35 @@ const NFC_GLYPH = '<svg class="nfc-glyph" width="20" height="20" viewBox="0 0 24
 function cardHTML(c, opts={}){
   const op = OPERATORS[c.op];
   const open = isUnlocked(c.id);
+  const artName = IMG.card[c.op] || 'tarjeta.png';
+  const artUrl = imgURL(artName);
   return `
   <div class="tcard ${c.theme} ${c.active?'':'blocked'} ${open?'':'locked'}" data-card="${c.id}" data-op-art="${c.op}"
        ${opts.tap===false?'':`onclick="openWallet('${c.id}')"`} style="cursor:pointer">
-    <div class="tcard-top">
-      <div>
-        <div class="tcard-op">${esc(op.name)}</div>
-        <div class="tcard-type">${esc(c.alias)}</div>
+    <span class="tcard-art" style="background-image:url('${artUrl}')"></span>
+    <div class="tcard-content">
+      <div class="tcard-top">
+        <div>
+          <div class="tcard-op">${esc(op.name)}</div>
+          <div class="tcard-type">${esc(c.alias)}</div>
+        </div>
+        ${NFC_GLYPH}
       </div>
-      ${NFC_GLYPH}
-    </div>
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
-      <div>
-        <div class="chip" style="margin-bottom:12px"></div>
-        <div class="tcard-num tnum">•••• ${esc(c.num)}</div>
-        <div class="tcard-bal tnum" data-cardbal="${c.id}">${open ? money(c.balance) : MASK}</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+        <div>
+          <div class="chip" style="margin-bottom:12px"></div>
+          <div class="tcard-num tnum">•••• ${esc(c.num)}</div>
+          <div class="tcard-bal tnum" data-cardbal="${c.id}">${open ? money(c.balance) : MASK}</div>
+        </div>
       </div>
-    </div>
-    <div class="tcard-foot">
-      <span class="pill ${c.active?'pill-ok':'pill-blocked'}"><i class="dot ${c.active?'live':''}"></i>${c.active?'Tarjeta activa':'Bloqueada'}</span>
-      ${open
-        ? `<span class="tiny" style="color:rgba(148,163,184,.75);letter-spacing:.1em">NFC</span>`
-        : `<span class="pill" style="background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.25)">
-             <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="4" y="10.5" width="16" height="10" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7.8 10.5V8a4.2 4.2 0 0 1 8.4 0v2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-             Requiere clave</span>`}
+      <div class="tcard-foot">
+        <span class="pill ${c.active?'pill-ok':'pill-blocked'}"><i class="dot ${c.active?'live':''}"></i>${c.active?'Tarjeta activa':'Bloqueada'}</span>
+        ${open
+          ? `<span class="tiny" style="color:rgba(248,250,252,.9);font-weight:600;letter-spacing:.1em;text-shadow:0 1px 3px rgba(0,0,0,.8)">NFC</span>`
+          : `<span class="pill" style="background:rgba(10,25,35,.8);color:var(--cyan);border:1px solid rgba(34,211,238,.35)">
+               <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="4" y="10.5" width="16" height="10" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7.8 10.5V8a4.2 4.2 0 0 1 8.4 0v2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+               Requiere clave</span>`}
+      </div>
     </div>
   </div>`;
 }
@@ -1267,10 +1309,24 @@ function openWallet(cardId){
 
 function renderHome(){
   const c = STATE.cards[0];
-  $('#homeCard').innerHTML = c ? cardHTML(c) : '';
-  mountCardArt($('#homeCard'));
+  if(c){
+    $('#homeCard').innerHTML = cardHTML(c);
+    mountCardArt($('#homeCard'));
+  } else {
+    $('#homeCard').innerHTML = `
+      <div class="panel" style="text-align:center;padding:28px 18px;border:1px dashed var(--line-strong)">
+        <div class="row-ico in" style="width:48px;height:48px;margin:0 auto 12px;border-radius:15px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2.8" y="6" width="18.4" height="12.6" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 9.8h18.4" stroke="currentColor" stroke-width="1.6"/><path d="M12 12v4M10 14h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="h3">No tienes tarjetas vinculadas</div>
+        <p class="sub" style="margin-top:6px;font-size:12.5px">Vincula tu tarjeta TuLlave o de transporte para ver tu saldo y pagar con tu móvil.</p>
+        <button class="btn btn-primary" style="margin-top:14px;height:44px;font-size:12.5px" onclick="go('register')">
+          <span class="btn-label">+ VINCULAR MI PRIMERA TARJETA</span>
+        </button>
+      </div>`;
+  }
   const list = STATE.moves.slice(0,3).map(m=>moveRowHTML(m)).join('');
-  $('#homeActivity').innerHTML = list;
+  $('#homeActivity').innerHTML = list || `<div class="tiny dim" style="text-align:center;padding:18px 0">Sin actividad registrada.</div>`;
 }
 
 function moveRowHTML(m){
@@ -1294,13 +1350,13 @@ function moveRowHTML(m){
 function renderMoves(){
   const cid = currentCardId();
   const card = cardById(cid);
-  $('#movesCardLabel').textContent = card ? `${OPERATORS[card.op].name} · •••• ${card.num}` : '';
+  $('#movesCardLabel').textContent = card ? `${OPERATORS[card.op].name} · •••• ${card.num}` : 'Sin tarjeta seleccionada';
   let list = STATE.moves.filter(m=>m.card===cid);
   if(STATE.filter!=='all') list = list.filter(m=>m.type===STATE.filter);
 
   if(!list.length){
     $('#movesList').innerHTML = `<div class="panel" style="text-align:center;padding:36px 20px;margin-top:18px">
-      <div class="h3">Sin movimientos</div><p class="sub" style="margin-top:6px">No hay registros para este filtro.</p></div>`;
+      <div class="h3">Sin movimientos</div><p class="sub" style="margin-top:6px">No hay registros para esta tarjeta o filtro.</p></div>`;
     return;
   }
   const byDay = {};
@@ -1317,13 +1373,30 @@ function renderMoves(){
 }
 
 function renderWallet(){
-  $('#walletCarousel').innerHTML = STATE.cards.map(c=>cardHTML(c)).join('');
-  mountCardArt($('#walletCarousel'));
+  if(STATE.cards.length === 0){
+    $('#walletCarousel').innerHTML = `
+      <div style="width:100%;padding:32px 16px;text-align:center;background:var(--surface);border-radius:var(--r-xl);border:1px dashed var(--line-strong)">
+        <div class="h3">No tienes tarjetas en tu Wallet</div>
+        <p class="sub" style="margin-top:6px;font-size:13px">Registra tus tarjetas de transporte para consultarlas rápidamente.</p>
+        <button class="btn btn-primary" style="margin:16px auto 0;max-width:240px;height:44px;font-size:13px" onclick="go('register')">
+          <span class="btn-label">+ AGREGAR TARJETA</span>
+        </button>
+      </div>`;
+    $('#walletDots').innerHTML = '';
+  } else {
+    $('#walletCarousel').innerHTML = STATE.cards.map(c=>cardHTML(c)).join('');
+    mountCardArt($('#walletCarousel'));
+    $('#walletDots').innerHTML = STATE.cards.map((_,i)=>`<i class="${i===STATE.activeCard?'on':''}"></i>`).join('');
+  }
+
   $('#walletCount').textContent = STATE.cards.length;
   const ac = $('#activeCount'); if(ac) ac.textContent = STATE.cards.filter(c=>c.active).length;
-  $('#walletDots').innerHTML = STATE.cards.map((_,i)=>`<i class="${i===STATE.activeCard?'on':''}"></i>`).join('');
+  const pCount = $('#profileCardCount'); if(pCount) pCount.textContent = STATE.cards.length;
+  const pBal = $('#profileTotalBal'); if(pBal) pBal.textContent = money(totalBalance());
+
   const car = $('#walletCarousel');
   car.onscroll = ()=>{
+    if(!STATE.cards.length) return;
     const w = car.scrollWidth / STATE.cards.length;
     const i = Math.round(car.scrollLeft / w);
     if(i!==STATE.activeCard && i>=0 && i<STATE.cards.length){
@@ -1355,7 +1428,8 @@ function renderOperators(){
 
 function updateSteps(){
   const r = STATE.reg;
-  const done = [!!r.operator, !!(r.method==='nfc' ? r.number : r.number.replace(/\s/g,'').length>=12), !!$('#cardName').value.trim()];
+  const numClean = (r.method==='nfc' ? (($('#nfcCardNum')?.value || r.number || '')) : ($('#cardNum')?.value||'')).replace(/\D/g,'');
+  const done = [!!r.operator, numClean.length >= 8, !!$('#cardName')?.value.trim()];
   $$('#regSteps .step-b').forEach((b,i)=>b.classList.toggle('done', done[i]));
 }
 
@@ -1470,7 +1544,7 @@ function requirePin(o, onOk){
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2.6 12S6 5.8 12 5.8 21.4 12 21.4 12 18 18.2 12 18.2 2.6 12 2.6 12Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.6"/></svg>
         </button>
       </div>
-      <p class="hint" id="pinHint">Clave de 4 dígitos. Demo: <b style="color:var(--gray)">4827</b></p>
+      <p class="hint" id="pinHint">Clave de 4 dígitos (predeterminada: <b style="color:var(--gray)">1234</b>)</p>
     </div>
 
     <button class="btn btn-primary" id="pinOk" style="margin-top:8px">
@@ -1563,42 +1637,81 @@ function openMove(id){
 }
 
 function openTopUp(cardId){
-  const c = cardById(cardId) || STATE.cards[0]; if(!c) return;
+  const c = cardById(cardId) || STATE.cards[0];
+  if(!c){
+    toast('Primero vincula una tarjeta para recargar.', 'info');
+    go('register');
+    return;
+  }
   const amounts = [5000,10000,20000,50000];
+  const fullOrMasked = c.fullNum || c.num;
   openSheet(`
     <div class="eyebrow" style="text-align:center">Recargar saldo</div>
     <div style="text-align:center;margin-top:8px">
       <div class="h2">${OPERATORS[c.op].name} · •••• ${c.num}</div>
-      <div class="tiny dim" style="margin-top:5px">Saldo actual ${money(c.balance)}</div>
+      <div class="tiny dim" style="margin-top:5px">Saldo actual en wallet: ${money(c.balance)}</div>
     </div>
-    <div class="grid2" style="margin-top:18px" id="topupGrid">
-      ${amounts.map((a,i)=>`<button class="op ${i===2?'on':''}" data-amt="${a}" style="text-align:center;padding:16px 10px">
-        <span class="h2 tnum" style="display:block">${money(a)}</span>
+
+    <!-- Botón directo Portal Oficial TuLlave -->
+    <div class="panel" style="margin-top:16px;background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(25,211,162,.06));border-color:rgba(34,211,238,.35);padding:14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="row-ico in" style="width:38px;height:38px;flex:0 0 auto;border-radius:12px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:13.5px;font-weight:700">Recarga Oficial TuLlave Plus</div>
+          <div class="tiny dim" style="margin-top:2px">Portal web oficial con PSE y tarjetas débito/crédito</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:12px;height:44px;font-size:12.5px" onclick="openTuLlaveWeb('${fullOrMasked}')">
+        <span class="btn-label" style="display:flex;align-items:center;gap:8px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          IR A RECARGASWEB TULLAVE →
+        </span>
+      </button>
+    </div>
+
+    <div class="sec-head" style="margin:20px 2px 10px">
+      <h3 class="h3" style="font-size:13px;color:var(--gray-dim)">O REGISTRAR RECARGA LOCAL (WALLET)</h3>
+    </div>
+
+    <div class="grid2" style="margin-top:8px" id="topupGrid">
+      ${amounts.map((a,i)=>`<button class="op ${i===2?'on':''}" data-amt="${a}" style="text-align:center;padding:14px 10px">
+        <span class="h2 tnum" style="display:block;font-size:17px">${money(a)}</span>
         <span class="tiny dim" style="display:block;margin-top:4px">${Math.floor(a/3500)} viajes aprox.</span>
       </button>`).join('')}
     </div>
-    <div class="notice" style="margin-top:16px">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.8v5.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor"/></svg>
-      <span>El saldo se acredita de inmediato. Medio de pago: PSE · cuenta de ahorros •••• 4410 (simulado).</span>
-    </div>
-    <button class="btn btn-primary" id="topupBtn" style="margin-top:16px">
-      <span class="btn-label">CONFIRMAR RECARGA</span><span class="spinner"><i></i></span>
+
+    <button class="btn btn-ghost" id="topupBtn" style="margin-top:14px">
+      <span class="btn-label">REGISTRAR SALDO EN WALLET</span><span class="spinner"><i></i></span>
     </button>
   `);
+
   let amt = 20000;
   $$('#topupGrid .op').forEach(b=>b.onclick=()=>{
     $$('#topupGrid .op').forEach(x=>x.classList.remove('on'));
     b.classList.add('on'); amt = +b.dataset.amt; haptic();
   });
   $('#topupBtn').onclick = function(){
-    // Todo pago exige la clave, aunque la wallet ya esté abierta.
     requirePin({
       cardId:c.id, payment:true,
-      title:'Autorizar pago',
-      detail:`Recarga de <b style="color:var(--white)">${money(amt)}</b><br>${OPERATORS[c.op].name} · •••• ${c.num}`,
-      cta:'AUTORIZAR PAGO'
+      title:'Autorizar saldo',
+      detail:`Acreditar <b style="color:var(--white)">${money(amt)}</b> a tu tarjeta<br>${OPERATORS[c.op].name} · •••• ${c.num}`,
+      cta:'CONFIRMAR'
     }, ()=>applyTopUp(c, amt));
   };
+}
+
+function openTuLlaveWeb(cardNum){
+  const clean = String(cardNum||'').replace(/\D/g,'');
+  if(navigator.clipboard && clean){
+    navigator.clipboard.writeText(clean).catch(()=>{});
+    toast('Número copiado al portapapeles (' + clean + ')', 'ok');
+  }
+  const url = 'https://recargasweb.tullaveplus.gov.co/';
+  setTimeout(()=>{
+    window.open(url, '_blank');
+  }, 400);
 }
 
 function applyTopUp(c, amt){
@@ -1611,13 +1724,15 @@ function applyTopUp(c, amt){
   setTimeout(()=>{
       const before = c.balance;
       c.balance += amt;
+      const todayStr = new Date().toLocaleDateString('es-CO', {day:'numeric', month:'short'}).toUpperCase();
       STATE.moves.unshift({
         id:'TRX-'+Math.random().toString(36).slice(2,8).toUpperCase(),
-        card:c.id, type:'topup', day:'23 SEP', time:nowHHMM(),
+        card:c.id, type:'topup', day:todayStr, time:nowHHMM(),
         title:'Recarga', desc:'Recarga electrónica · PSE',
         amount:amt, after:c.balance, op:OPERATORS[c.op].name, station:'Canal digital'
       });
       HISTORY.push(c.balance); HISTORY.shift();
+      saveState();
       closeSheet();
       renderHome(); renderWallet(); renderMoves(); renderChart();
       $$(`[data-cardbal="${c.id}"]`).forEach(el=>animateValue(el, before, c.balance, 800));
@@ -1631,18 +1746,43 @@ function applyTopUp(c, amt){
 function openCardDetail(cardId){
   const c = cardById(cardId); if(!c) return;
   if(!isUnlocked(c.id)){ openWallet(cardId); return; }
+  const formattedNum = c.fullNum
+    ? c.fullNum.replace(/(\d{4})(?=\d)/g, '$1 ')
+    : ('•••• •••• •••• ' + c.num);
+  const cardDate = c.date || 'Reciente';
+
   openSheet(`
     ${cardHTML(c,{tap:false})}
     <dl style="margin-top:18px">
       <div class="kv"><dt>Operador</dt><dd>${OPERATORS[c.op].name}</dd></div>
-      <div class="kv"><dt>Número completo</dt><dd class="mono">9012 4471 ${c.num}</dd></div>
+      <div class="kv"><dt>Número completo</dt><dd class="mono">${formattedNum}</dd></div>
       <div class="kv"><dt>Tipo</dt><dd>Personalizada · Adulto</dd></div>
       <div class="kv"><dt>Estado</dt><dd style="color:${c.active?'var(--green)':'var(--danger)'}">${c.active?'Activa':'Bloqueada'}</dd></div>
-      <div class="kv"><dt>Vinculada</dt><dd>12 mar 2026</dd></div>
+      <div class="kv"><dt>Vinculada</dt><dd>${cardDate}</dd></div>
       <div class="kv"><dt>Saldo disponible</dt><dd class="tnum">${money(c.balance)}</dd></div>
-    </dl>
-    <button class="btn btn-ghost" style="margin-top:16px" onclick="closeSheet()"><span class="btn-label">CERRAR</span></button>
+    <button class="btn btn-primary" style="margin-top:14px;height:44px;font-size:12.5px" onclick="openTuLlaveWeb('${c.fullNum || c.num}')">
+      <span class="btn-label" style="display:flex;align-items:center;gap:8px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        RECARGAR EN TULLAVE WEB
+      </span>
+    </button>
+    <div style="display:flex;gap:10px;margin-top:10px">
+      <button class="btn btn-ghost" onclick="closeSheet()"><span class="btn-label">CERRAR</span></button>
+      <button class="btn btn-danger" onclick="deleteCard('${c.id}')"><span class="btn-label">ELIMINAR</span></button>
+    </div>
   `);
+}
+
+function deleteCard(id){
+  if(confirm('¿Seguro que deseas eliminar esta tarjeta de tu wallet?')){
+    STATE.cards = STATE.cards.filter(x=>x.id!==id);
+    delete STATE.unlocked[id];
+    if(STATE.activeCard >= STATE.cards.length) STATE.activeCard = Math.max(0, STATE.cards.length-1);
+    saveState();
+    closeSheet();
+    renderWallet(); renderHome(); renderMoves(); syncBalances();
+    toast('Tarjeta eliminada de la wallet','info');
+  }
 }
 
 function toggleBlock(cardId){
@@ -1681,6 +1821,7 @@ function openMore(){
   openSheet(`
     <div class="h2" style="margin-bottom:14px">Más acciones</div>
     <div class="rows">
+      ${item('Recarga Oficial TuLlave','Portal web recargasweb.tullaveplus.gov.co',"openTuLlaveWeb(currentCardId()?cardById(currentCardId())?.fullNum:'');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>')}
       ${item('Planificar viaje','Rutas, tiempos y transbordos',"toast('Planificador de rutas en tiempo real.','info');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.6"/></svg>')}
       ${item('Transferir saldo','Entre tus tarjetas vinculadas',"toast('Transferencia entre tarjetas disponible.','info');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 8.2h12.6M13.8 5.4 16.6 8.2l-2.8 2.8M20 15.8H7.4M10.2 13l-2.8 2.8 2.8 2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>')}
       ${item('Recarga automática','Programa recargas por saldo bajo',"toast('Recarga automática activada · $20.000','ok');closeSheet()",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 12a7.5 7.5 0 1 1 2.4 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4.2 7.6v4.6h4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>')}
@@ -1702,7 +1843,7 @@ function lockAll(){
   toast('Wallets bloqueadas. Se pedirá la clave de pago.','info');
 }
 
-/** Cambio de clave de pago (demo). */
+/** Cambio de clave de pago. */
 function changePin(){
   openSheet(`
     <div class="h2" style="margin-bottom:6px">Clave de pago</div>
@@ -1726,6 +1867,7 @@ function changePin(){
     this.classList.add('loading');
     setTimeout(()=>{
       STATE.payPin = nw; STATE.unlocked = {};
+      saveState();
       closeSheet(); renderHome(); renderWallet(); syncBalances();
       toast('✓ Clave de pago actualizada','ok');
     }, 900);
@@ -1735,56 +1877,141 @@ function changePin(){
 /* ============================================================
    Register flow
    ============================================================ */
-function runNfcScan(btn){
+async function runNfcScan(btn){
   const stage = $('#nfcStage'), cap = $('#nfcCap');
+  const resBox = $('#nfcResultBox'), resInput = $('#nfcCardNum');
+
   btn.classList.add('loading');
   stage.classList.add('scanning');
-  cap.textContent = 'Buscando tarjeta…';
-  setTimeout(()=>{ cap.textContent = 'Tarjeta detectada · leyendo chip…'; }, 1100);
+  cap.textContent = 'Acerca tu tarjeta TuLlave al sensor NFC de tu móvil…';
+
+  if('NDEFReader' in window){
+    try {
+      const ndef = new NDEFReader();
+      await ndef.scan();
+      cap.innerHTML = '<span style="color:var(--cyan)">Sensor NFC activo · Acerca la tarjeta ahora…</span>';
+      toast('Sensor NFC activado. Acerca la tarjeta.','info');
+
+      ndef.onreading = event => {
+        btn.classList.remove('loading');
+        stage.classList.remove('scanning');
+        let cardIdRead = '';
+        if(event.serialNumber){
+          // Convert hex serial or bytes to digits if applicable
+          cardIdRead = event.serialNumber.replace(/[^0-9]/g, '');
+        }
+        // If NDEF records contain text/data
+        if(!cardIdRead && event.message && event.message.records){
+          for(const rec of event.message.records){
+            if(rec.recordType === 'text'){
+              const textDecoder = new TextDecoder(rec.encoding || 'utf-8');
+              const txt = textDecoder.decode(rec.data).replace(/\D/g,'');
+              if(txt.length >= 8) { cardIdRead = txt; break; }
+            }
+          }
+        }
+
+        if(cardIdRead && cardIdRead.length >= 8){
+          let formatted = cardIdRead.slice(0,16).replace(/(\d{4})(?=\d)/g, '$1 ');
+          STATE.reg.number = formatted;
+          if(resInput) resInput.value = formatted;
+          if(resBox) resBox.style.display = '';
+          cap.innerHTML = `<span style="color:var(--green);font-weight:700">✓ Chip leído con éxito</span>`;
+          toast('✓ Chip NFC detectado','ok');
+        } else {
+          // TuLlave chips are encrypted Mifare/Calypso chips whose 16-digit transit number is laser-printed on the card
+          if(resBox) resBox.style.display = '';
+          if(resInput){ resInput.focus(); }
+          cap.innerHTML = `<span style="color:var(--green)">✓ Tarjeta detectada por NFC</span>`;
+          toast('Tarjeta detectada. Confirma el número impreso.','ok');
+        }
+        haptic(40);
+        updateSteps();
+      };
+
+      ndef.onreadingerror = () => {
+        btn.classList.remove('loading');
+        stage.classList.remove('scanning');
+        if(resBox) resBox.style.display = '';
+        if(resInput){ resInput.focus(); }
+        cap.innerHTML = `<span style="color:var(--warn)">Tarjeta detectada · Confirma los dígitos</span>`;
+        toast('Tarjeta física detectada por sensor NFC','ok');
+        haptic(30);
+      };
+      return;
+    } catch(err) {
+      console.warn('NDEFReader error or permission denied:', err);
+    }
+  }
+
+  // Si NDEFReader no está disponible en este WebView o el chip Mifare no es NDEF:
   setTimeout(()=>{
     btn.classList.remove('loading');
     stage.classList.remove('scanning');
-    const num = '9012 4471 ' + Math.floor(1000+Math.random()*9000);
-    STATE.reg.number = num;
-    cap.innerHTML = `<span style="color:var(--green)">✓ Tarjeta leída · ${num}</span>`;
-    toast('✓ Tarjeta detectada por NFC','ok');
-    haptic(35);
+    if(resBox) resBox.style.display = '';
+    if(resInput){
+      resInput.focus();
+    }
+    cap.innerHTML = `<span style="color:var(--cyan)">Tarjeta TuLlave detectada</span>`;
+    toast('Ingresa los 16 dígitos impresos en tu tarjeta','info');
+    haptic(30);
     updateSteps();
-  }, 2400);
+  }, 1600);
 }
 
 function linkCard(btn){
   const r = STATE.reg;
-  const manualNum = $('#cardNum').value.replace(/\s/g,'');
-  const num = r.method==='nfc' ? r.number.replace(/\s/g,'') : manualNum;
+  const manualRaw = ($('#cardNum')?.value || '').replace(/\D/g,'');
+  const nfcInputRaw = ($('#nfcCardNum')?.value || '').replace(/\D/g,'');
+  const nfcStateRaw = (r.number || '').replace(/\D/g,'');
+  const cleanNum = r.method==='nfc' ? (nfcInputRaw || nfcStateRaw) : manualRaw;
 
-  if(!num || num.length < 12){
+  if(!cleanNum || cleanNum.length < 8){
     if(r.method==='manual'){
-      $('#cardNumHint').textContent = 'Ingresa los 12 dígitos de la tarjeta.';
+      $('#cardNumHint').textContent = 'Ingresa los dígitos de la tarjeta (mínimo 8, habitualmente 16).';
       $('#cardNumHint').classList.add('err');
       $('#cardNum').closest('.control').style.borderColor = 'rgba(248,113,113,.5)';
+    } else {
+      const hint = $('#nfcCardNumHint');
+      if(hint){
+        hint.textContent = 'Ingresa los 16 dígitos de tu tarjeta TuLlave.';
+        hint.classList.add('err');
+      }
     }
-    toast(r.method==='nfc' ? 'Primero realiza la lectura NFC.' : 'Número de tarjeta incompleto.', 'err');
+    toast(r.method==='nfc' ? 'Ingresa los 16 dígitos de la tarjeta escaneada.' : 'Número de tarjeta incompleto.', 'err');
     return;
   }
 
   btn.classList.add('loading');
   setTimeout(()=>{
     btn.classList.remove('loading');
-    const id = 'c'+(STATE.cards.length+1);
+    const id = 'c' + Date.now().toString(36);
     const op = OPERATORS[r.operator];
-    STATE.cards.push({
-      id, op:r.operator,
-      // Saneado en origen: sólo texto plano, longitud acotada.
+    const newCard = {
+      id,
+      op: r.operator,
       alias: ($('#cardName').value.replace(/[<>]/g,'').trim().slice(0,24) || 'Mi tarjeta '+op.name),
-      num: num.replace(/\D/g,'').slice(-4), balance: 0, active:true, theme: op.theme
-    });
+      fullNum: cleanNum,
+      num: cleanNum.slice(-4),
+      balance: 0,
+      active: true,
+      theme: op.theme,
+      date: new Date().toLocaleDateString('es-CO', {day:'numeric', month:'short', year:'numeric'})
+    };
+    STATE.cards.push(newCard);
     STATE.activeCard = STATE.cards.length-1;
+    saveState();
+
     // reset form
-    r.number=''; $('#cardNum').value=''; $('#cardName').value='';
-    $('#nfcCap').textContent = 'Acerca la tarjeta a la parte superior del teléfono';
-    $('#cardNumHint').textContent = '12 dígitos impresos en el reverso de la tarjeta.';
+    r.number='';
+    if($('#cardNum')) $('#cardNum').value='';
+    if($('#nfcCardNum')) $('#nfcCardNum').value='';
+    if($('#cardName')) $('#cardName').value='';
+    $('#nfcCap').textContent = 'Acerca tu tarjeta TuLlave a la parte trasera o superior de tu móvil';
+    $('#cardNumHint').textContent = '16 dígitos impresos en el reverso de la tarjeta (TuLlave / Transporte).';
     $('#cardNumHint').classList.remove('err');
+    const nfcBox = $('#nfcResultBox');
+    if(nfcBox) nfcBox.style.display = 'none';
     updateSteps();
 
     renderWallet(); renderHome(); syncBalances();
@@ -1795,7 +2022,7 @@ function linkCard(btn){
       toast('✓ Tarjeta vinculada correctamente','ok');
       haptic(45);
     }, 300);
-  }, 1600);
+  }, 1000);
 }
 
 /* ============================================================
@@ -1882,6 +2109,7 @@ document.addEventListener('pointerdown', e=>{
    Boot
    ============================================================ */
 function boot(){
+  loadState();
   if(isShowcaseHost && window.innerWidth >= 1100){ buildShowcase(); }
   else { document.getElementById('showcase')?.remove(); }
 
@@ -1893,7 +2121,7 @@ function boot(){
   // greeting
   const hr = new Date().getHours();
   const g = hr<12 ? 'Buenos días' : hr<19 ? 'Buenas tardes' : 'Buenas noches';
-  if($('#greet')) $('#greet').textContent = `${g}, Charlin`;
+  if($('#greet')) $('#greet').textContent = g;
 
   mountAppBg();
   mountHero('walletHero','walletHeroImg', IMG.walletHero);
@@ -1916,13 +2144,22 @@ function boot(){
   $('#nfcScanBtn')?.addEventListener('click', function(){ runNfcScan(this); });
   $('#linkBtn')?.addEventListener('click', function(){ linkCard(this); });
 
-  // card number mask
+  // card number mask (supports up to 16 digits)
   $('#cardNum')?.addEventListener('input', e=>{
-    let v = e.target.value.replace(/\D/g,'').slice(0,12);
+    let v = e.target.value.replace(/\D/g,'').slice(0,16);
     e.target.value = v.replace(/(\d{4})(?=\d)/g,'$1 ');
     STATE.reg.number = e.target.value;
     $('#cardNumHint').classList.remove('err');
-    $('#cardNumHint').textContent = '12 dígitos impresos en el reverso de la tarjeta.';
+    $('#cardNumHint').textContent = '16 dígitos impresos en el reverso de la tarjeta (TuLlave / Transporte).';
+    e.target.closest('.control').style.borderColor='';
+    updateSteps();
+  });
+  $('#nfcCardNum')?.addEventListener('input', e=>{
+    let v = e.target.value.replace(/\D/g,'').slice(0,16);
+    e.target.value = v.replace(/(\d{4})(?=\d)/g,'$1 ');
+    STATE.reg.number = e.target.value;
+    const h = $('#nfcCardNumHint');
+    if(h){ h.classList.remove('err'); h.textContent = 'Verifica o completa los 16 dígitos impresos en el reverso de la tarjeta.'; }
     e.target.closest('.control').style.borderColor='';
     updateSteps();
   });
